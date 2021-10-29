@@ -1,0 +1,49 @@
+<template>
+    <div class="slds-m-around_medium" onkeyup={startSearchTimer}> 
+        <lightning-input type="search" value={searchKey} onchange={startSearchTimer}>
+        </lightning-input>
+    </div>
+    <lightning-layout horizontal-align="center" vertical-align="center" class="pagination-controls">
+        <lightning-layout-item flexibility="auto" padding="around-small">
+            <lightning-button label="First" onclick={firstHandler}>
+            </lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto" padding="around-small">
+            <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler}>
+            </lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto">
+            Page {page} of {totalPage}
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto" padding="around-small">
+            <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right"
+                onclick={nextHandler}></lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto" padding="around-small">
+            <lightning-button label="Last" onclick={lastHandler}>
+            </lightning-button>
+        </lightning-layout-item>
+        
+        <lightning-layout-item>
+            <lightning-combobox
+                variant="label-hidden"
+                name="pageSizeOptions"
+                value={pageSize}
+                placeholder="Select Page Size"
+                options={pageSizeOptions}
+                onchange={handleRecordsPerPage} ></lightning-combobox>
+        </lightning-layout-item>
+    </lightning-layout>
+    
+    <div class="myTable">
+        <lightning-datatable data={data} columns={columns} key-field="Id" hide-checkbox-column="true" onrowaction={callRowAction}>
+        </lightning-datatable>
+    </div>
+    <div class="download_button">
+        <lightning-button icon-name="utility:download" 
+                        label="Download as CSV" 
+                        title="Download CSV File"
+                        onclick={downloadCSVFile} variant="brand">
+        </lightning-button>
+    </div>
+</template>
